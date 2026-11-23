@@ -129,6 +129,24 @@ ul.checks li::before{content:""; position:absolute; left:0; top:3px; width:20px;
 .rline{position:absolute; left:calc(44.44% + 4px); right:0; top:89px; height:4px; z-index:0}
 .rline i{display:block; height:100%; width:0; border-radius:4px; background:linear-gradient(90deg, #2bb3e0, var(--cyan)); transition:width 1.2s ease 2.2s}
 .slide.on .rline i{width:100%}
+.snake{position:relative; width:1144px; height:470px; margin-top:4px}
+.snk{position:absolute; inset:0; width:100%; height:100%; overflow:visible}
+.snk path{fill:none; stroke-width:4; stroke-linecap:round}
+.snk .sa{stroke-dasharray:1100; stroke-dashoffset:1100; transition:stroke-dashoffset 1.6s ease .1s}
+.snk .sb{stroke:#62cef0; stroke-dasharray:2900; stroke-dashoffset:2900; transition:stroke-dashoffset 2.6s ease 1.7s}
+.snk .sc{stroke:#62cef0; opacity:0; transition:opacity .4s ease 4.2s}
+.slide.on .snk .sa, .slide.on .snk .sb{stroke-dashoffset:0}
+.slide.on .snk .sc{opacity:1}
+.sn{position:absolute; width:118px; display:flex; flex-direction:column; gap:6px; transform:translate(0,-9px); opacity:0; transition:opacity .5s ease var(--d)}
+.slide.on .sn{opacity:1}
+.sn b{width:18px; height:18px; border-radius:50%; background:#fff; border:4px solid var(--violet)}
+.sn.hot b{border-color:var(--purple); box-shadow:0 0 0 6px rgba(160,32,240,.15)}
+.sn small{font-family:var(--display); font-weight:700; font-size:15px; letter-spacing:.06em; text-transform:uppercase; color:var(--violet)}
+.sn span{font-size:14.5px; line-height:1.3; color:var(--ink-2)}
+.sn.r{width:150px} .sn.r b{background:var(--cyan); border-color:#fff; box-shadow:0 0 0 2px var(--cyan), 0 0 0 8px rgba(98,206,240,.2)}
+.sn.r small{color:#1d9cc7}
+.snlabel{position:absolute; font-family:var(--display); font-weight:700; font-size:15px; letter-spacing:.1em; text-transform:uppercase; color:#1d9cc7; width:250px; text-align:right; opacity:0; transition:opacity .5s ease 2s}
+.slide.on .snlabel{opacity:1}
 </style>
 
 </head>
@@ -262,30 +280,31 @@ ul.checks li::before{content:""; position:absolute; left:0; top:3px; width:20px;
 <section class="slide" data-name="Nine weeks">
   <div class="kicker">Nine weeks at a glance</div>
   <h2>From launch call to live engine</h2>
-  <div class="tl" style="margin-top:20px">
-    <div class="axis"><i></i></div>
-    <div class="pts">
-      <div class="pt hot rise"><b></b><small>21 Sep</small><span>Launch call, ICP and do not contact list</span></div>
-      <div class="pt rise"><b></b><small>28 Sep</small><span>Connections analysed, first market map, Claude skills</span></div>
-      <div class="pt rise"><b></b><small>5 Oct</small><span>Map rebuilt to your rules, copy, lead magnets</span></div>
-      <div class="pt rise"><b></b><small>12 Oct</small><span>Copy signed off, open jobs hot list</span></div>
-      <div class="pt hot rise"><b></b><small>19 Oct</small><span>Four campaigns live, proposal skill rebranded</span></div>
-      <div class="pt rise"><b></b><small>26 Oct</small><span>nitruc.tech on Zapmail, Kit as newsletter</span></div>
-      <div class="pt rise"><b></b><small>2 Nov</small><span>Newsletter design approved, API requested</span></div>
-      <div class="pt hot rise"><b></b><small>9 Nov</small><span>Bullhorn API live, opt-outs out</span></div>
-      <div class="pt hot rise"><b></b><small>16 Nov</small><span>Bullhorn in Claude, newsletter sent, lists refreshed</span></div>
-    </div>
-    <div class="refresh">
-      <div class="rgrid">
-        <div class="rlabel"><span class="chip">Every Monday</span><div>Since 19 October, leads have been refreshed every Monday.</div></div>
-        <div class="rf"><i class="drop"></i><b></b><small>Refresh</small><span>Mon 19 Oct</span></div>
-        <div class="rf"><i class="drop"></i><b></b><small>Refresh</small><span>Mon 26 Oct</span></div>
-        <div class="rf"><i class="drop"></i><b></b><small>Refresh</small><span>Mon 2 Nov</span></div>
-        <div class="rf"><i class="drop"></i><b></b><small>Refresh</small><span>Mon 9 Nov</span></div>
-        <div class="rf"><i class="drop"></i><b></b><small>Refresh</small><span>Mon 16 Nov</span></div>
-      </div>
-      <div class="rline"><i></i></div>
-    </div>
+  <div class="snake">
+    <svg class="snk" viewBox="0 0 1144 470" aria-hidden="true">
+      <defs><linearGradient id="sg1" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1144" y2="0"><stop offset="0" stop-color="#6f00ff"/><stop offset=".6" stop-color="#a020f0"/><stop offset="1" stop-color="#62cef0"/></linearGradient></defs>
+      <path class="sa" d="M18 20 H1110" stroke="url(#sg1)"/>
+      <path id="snb" class="sb" d="M1110 20 a105 105 0 0 1 0 210 H 60 a75 75 0 0 0 0 150 H 1080"/>
+      <path class="sc" d="M1066 368 l16 12 l-16 12"/>
+      <circle r="6" class="bead cy"><animateMotion dur="7s" begin="3s" repeatCount="indefinite"><mpath href="#snb"/></animateMotion></circle>
+    </svg>
+    <div class="snlabel" style="left:820px; top:182px">Every Monday since launch</div>
+    <div class="snlabel" style="left:820px; top:412px">and every Monday after</div>
+    
+    <div class="sn p hot" style="left:9px; top:20px; --d:0.15s"><b></b><small>21 Sep</small><span>Launch call, ICP and do not contact list</span></div>
+    <div class="sn p" style="left:136px; top:20px; --d:0.32s"><b></b><small>28 Sep</small><span>Connections analysed, first market map, Claude skills</span></div>
+    <div class="sn p" style="left:263px; top:20px; --d:0.49s"><b></b><small>5 Oct</small><span>Map rebuilt to your rules, copy, lead magnets</span></div>
+    <div class="sn p" style="left:390px; top:20px; --d:0.66s"><b></b><small>12 Oct</small><span>Copy signed off, open jobs hot list</span></div>
+    <div class="sn p hot" style="left:517px; top:20px; --d:0.83s"><b></b><small>19 Oct</small><span>Four campaigns live, proposal skill rebranded</span></div>
+    <div class="sn p" style="left:644px; top:20px; --d:1.00s"><b></b><small>26 Oct</small><span>nitruc.tech on Zapmail, Kit as newsletter</span></div>
+    <div class="sn p" style="left:771px; top:20px; --d:1.17s"><b></b><small>2 Nov</small><span>Newsletter design approved, API requested</span></div>
+    <div class="sn p hot" style="left:898px; top:20px; --d:1.34s"><b></b><small>9 Nov</small><span>Bullhorn API live, opt-outs out</span></div>
+    <div class="sn p hot" style="left:1025px; top:20px; --d:1.51s"><b></b><small>16 Nov</small><span>Bullhorn in Claude, newsletter sent, lists refreshed</span></div>
+    <div class="sn r" style="left:960px; top:230px; --d:2.00s"><b></b><small>Mon 19 Oct</small><span>Leads refreshed</span></div>
+    <div class="sn r" style="left:640px; top:230px; --d:2.35s"><b></b><small>Mon 26 Oct</small><span>Leads refreshed</span></div>
+    <div class="sn r" style="left:320px; top:230px; --d:2.70s"><b></b><small>Mon 2 Nov</small><span>Leads refreshed</span></div>
+    <div class="sn r" style="left:230px; top:380px; --d:3.05s"><b></b><small>Mon 9 Nov</small><span>Leads refreshed</span></div>
+    <div class="sn r" style="left:560px; top:380px; --d:3.40s"><b></b><small>Mon 16 Nov</small><span>Leads refreshed</span></div>
   </div>
 </section>
 
