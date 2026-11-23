@@ -110,6 +110,11 @@ table.t td.n{text-align:right; font-weight:600}
 
 table.t.sm{font-size:15px} table.t.sm td{padding:6px 10px} table.t.sm th{padding:6px 10px} table.t th.r{text-align:right}
 table.t tr.win td{background:var(--tint); font-weight:600}
+table.t b.hi{color:var(--violet)}
+.panel{gap:6px; padding:16px 18px} .panel small{font-family:var(--display); font-weight:700; letter-spacing:.08em; text-transform:uppercase; font-size:13px; color:var(--purple)}
+ul.mini{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:5px} ul.mini li{font-size:15px; line-height:1.35; color:var(--ink)} ul.mini li b{color:var(--violet); margin-right:6px; font-family:var(--display); font-size:16px}
+ul.checks{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px} ul.checks li{position:relative; padding-left:34px; font-size:18px; line-height:1.4; color:var(--ink)}
+ul.checks li::before{content:""; position:absolute; left:0; top:3px; width:20px; height:20px; border-radius:6px; border:2.5px solid var(--violet); background:#fff}
 </style>
 
 </head>
@@ -130,10 +135,10 @@ table.t tr.win td{background:var(--tint); font-weight:600}
   <h2>The numbers so far</h2>
   <div class="grid" style="grid-template-columns:repeat(3,1fr); margin-top:6px">
     <div class="card rise"><div class="big" data-count="1269">0</div><div class="lbl">people contacted, from 1,666 leads loaded</div></div>
-    <div class="card rise"><div class="big" data-count="17">0</div><div class="lbl">replies: 3 cold LinkedIn, 8 from your connections, 6 by email</div></div>
+    <div class="card rise"><div class="big" data-count="17">0</div><div class="lbl">replies from all channels</div></div>
     <div class="card rise"><div class="big"><span data-count="23">0</span>%</div><div class="lbl">of cold invites accepted (27 of 117), above the 20% we treat as good</div></div>
-    <div class="card rise"><div class="big">4 <span style="font-size:40px">to</span> 0</div><div class="lbl">replies for Message 1 version B over A, across both split tests</div></div>
-    <div class="card rise"><div class="big" data-count="1154">0</div><div class="lbl">campaign emails delivered from nitruc.tech</div></div>
+    <div class="card rise"><div class="big">14% <span style="font-size:36px">vs</span> 0%</div><div class="lbl">reply rate of the winning Message 1, version B (4 of 28), against version A (0 of 24)</div></div>
+    <div class="card rise"><div class="big" data-count="1154">0</div><div class="lbl">campaign emails delivered</div></div>
     <div class="card rise"><div class="big"><span data-count="36">0</span>%</div><div class="lbl">opened the newsletter, 3,226 of 8,948 people</div></div>
   </div>
   <div class="foot">Sources: Dripify campaign and sequence views, 23 Nov 2026. Kit broadcast report, 17 Nov send, read 23 Nov.</div>
@@ -212,64 +217,31 @@ table.t tr.win td{background:var(--tint); font-weight:600}
   <div class="foot">Benchmarks are RecruiterGTM's working ranges for cold LinkedIn, not a Dripify figure.</div>
 </section>
 
-<!-- 6 Step by step -->
-<section class="slide" data-name="Step by step">
+<!-- Steps and split test -->
+<section class="slide" data-name="Sequences and split test">
   <div class="kicker">Inside each sequence</div>
-  <h2>Which step got the replies</h2>
-  <div class="row" style="gap:28px; align-items:flex-start">
-    <table class="t sm" style="flex:1">
-      <thead><tr><th>Cold, Open Jobs</th><th class="r">Sent</th><th class="r">Replies</th></tr></thead>
-      <tbody>
-        <tr><td>Connection request</td><td class="n">117</td><td class="n">26 accepted</td></tr>
-        <tr><td>Message 1 A</td><td class="n">8</td><td class="n">0</td></tr>
-        <tr class="win"><td>Message 1 B</td><td class="n">16</td><td class="n">2</td></tr>
-        <tr><td>Message 2</td><td class="n">13</td><td class="n">1</td></tr>
-        <tr><td>Message 3</td><td class="n">6</td><td class="n">0</td></tr>
-        <tr><td>Emails, 8 steps</td><td class="n">83</td><td class="n">0</td></tr>
-      </tbody>
-      <thead><tr><th>AI Lines</th><th></th><th></th></tr></thead>
-      <tbody>
-        <tr><td>Email 1</td><td class="n">1,123</td><td class="n">3</td></tr>
-        <tr><td>Email 2</td><td class="n">1,104</td><td class="n">3</td></tr>
-        <tr><td>Email 3</td><td class="n">1,098</td><td class="n">0</td></tr>
-      </tbody>
-    </table>
-    <table class="t sm" style="flex:1">
-      <thead><tr><th>Warm, Open Jobs</th><th class="r">Sent</th><th class="r">Replies</th></tr></thead>
-      <tbody>
-        <tr><td>Message 1 A</td><td class="n">16</td><td class="n">0</td></tr>
-        <tr class="win"><td>Message 1 B</td><td class="n">12</td><td class="n">2</td></tr>
-        <tr><td>Message 2</td><td class="n">26</td><td class="n">2</td></tr>
-        <tr><td>Message 3</td><td class="n">24</td><td class="n">0</td></tr>
-      </tbody>
-      <thead><tr><th>Warm, Not Hiring</th><th></th><th></th></tr></thead>
-      <tbody>
-        <tr><td>Message 1</td><td class="n">16</td><td class="n">1</td></tr>
-        <tr><td>Message 2</td><td class="n">15</td><td class="n">0</td></tr>
-        <tr class="win"><td>Message 3, "check back in the new year"</td><td class="n">15</td><td class="n">3</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="foot">Source: Dripify sequence step analytics, 23 Nov 2026. The step view shows 26 accepted where the campaign list shows 27; Dripify counts them at different moments.</div>
-</section>
-
-<!-- 7 Split test -->
-<section class="slide tinted" data-name="Split test">
-  <div class="kicker">The split test</div>
-  <h2>The version with a number got every reply</h2>
-  <div class="row" style="gap:40px; align-items:center">
-    <div style="flex:1; display:flex; flex-direction:column; gap:18px">
-      <div class="card rise"><div class="lbl">Message 1, version A: the approach, no number</div><div class="big" style="color:#8b82a8">0 <span style="font-size:30px">of 24</span></div><div class="bar"><i style="--w:1%"></i></div></div>
-      <div class="card rise"><div class="lbl">Message 1, version B: "On average my searches close in 27 days"</div><div class="big">4 <span style="font-size:30px">of 28 · 14%</span></div><div class="bar"><i style="--w:100%"></i></div></div>
+  <h2>Which step got the replies, and which version won</h2>
+  <table class="t sm">
+    <thead><tr><th>Campaign</th><th class="r">Step 1</th><th class="r">Step 2</th><th class="r">Step 3</th><th class="r">Emails</th></tr></thead>
+    <tbody>
+      <tr><td>Cold, Open Jobs <span class="lbl">(26 of 117 invites accepted)</span></td><td class="n">A 0 of 8 · <b class="hi">B 2 of 16</b></td><td class="n">1 of 13</td><td class="n">0 of 6</td><td class="n">0 of 83</td></tr>
+      <tr><td>Warm, Open Jobs</td><td class="n">A 0 of 16 · <b class="hi">B 2 of 12</b></td><td class="n">2 of 26</td><td class="n">0 of 24</td><td class="n">none</td></tr>
+      <tr><td>Warm, Not Hiring</td><td class="n">1 of 16</td><td class="n">0 of 15</td><td class="n"><b class="hi">3 of 15</b></td><td class="n">none</td></tr>
+      <tr><td>AI Lines (email only)</td><td class="n">3 of 1,123</td><td class="n">3 of 1,104</td><td class="n">0 of 1,098</td><td class="n">all steps</td></tr>
+    </tbody>
+  </table>
+  <div class="row" style="gap:28px; align-items:center; margin-top:4px">
+    <div style="flex:1; display:flex; flex-direction:column; gap:10px">
+      <div><div class="lbl">Message 1, version B, with a number: "On average my searches close in 27 days" · <b>14% replied (4 of 28)</b></div><div class="bar" style="height:22px"><i style="--w:100%"></i></div></div>
+      <div><div class="lbl">Message 1, version A, the approach without a number · <b>0% replied (0 of 24)</b></div><div class="bar" style="height:22px"><i style="--w:1%"></i></div></div>
     </div>
     <ul class="tick" style="flex:1">
-      <li data-step="1">Both B versions give a concrete proof point before the question. Both A versions talk about the partnership approach without a number.</li>
-      <li data-step="2">4 to 0 is a clear direction on a small sample, so we treat it as the lead to follow, not settled proof.</li>
-      <li data-step="3">B becomes the default Message 1 in the open jobs campaigns.</li>
-      <li data-step="4">Email subjects, "{Company}'s AI pilots" against "{Company}'s data under your AI": 0 replies each from 25 sends, so no winner yet.</li>
+      <li data-step="1" style="font-size:17px">B becomes the default Message 1. 4 to 0 is a clear direction on a small sample, not settled proof.</li>
+      <li data-step="2" style="font-size:17px">In Not Hiring, the "check back in the new year" note drew 3 of the 4 replies.</li>
+      <li data-step="3" style="font-size:17px">Email subjects "{Company}'s AI pilots" and "{Company}'s data under your AI": 0 replies each from 25 sends, no winner yet.</li>
     </ul>
   </div>
-  <div class="foot">Source: Dripify sequence step analytics, 23 Nov 2026, both campaigns with a split test combined.</div>
+  <div class="foot">Replies of sent, per step. Source: Dripify sequence step analytics, 23 Nov 2026.</div>
 </section>
 
 <!-- 8 Timeline -->
@@ -290,55 +262,34 @@ table.t tr.win td{background:var(--tint); font-weight:600}
       <div class="pt hot rise"><b></b><small>16 Nov</small><span>Bullhorn in Claude, newsletter sent, lists refreshed</span></div>
     </div>
   </div>
-  <p style="margin-top:auto">The next slides go through each stretch in detail.</p>
+  <div class="card rise" style="margin-top:auto; flex-direction:row; align-items:center; gap:16px"><span class="chip">Every Monday</span><div style="font-size:19px; color:var(--ink)">Since 19 October we have refreshed leads every Monday.</div></div>
 </section>
 
-<!-- 9 Foundations -->
-<section class="slide" data-name="Foundations">
-  <div class="kicker">21 September to 4 October · Foundations</div>
-  <h2>Setting the rules and the base data</h2>
-  <div class="steps">
-    <div class="step" data-step="1"><div class="d">24 Sep</div><div class="x">Launch call. ICP agreed: boutique data and AI consulting first, life sciences and financial services second, senior roles and up, New York, New Jersey and Connecticut. <em>Your 11 clients became the do not contact list.</em></div></div>
-    <div class="step" data-step="2"><div class="d">29 Sep</div><div class="x">Your LinkedIn connections analysed: of about 9,200 leadership connections, <b>144 fit on title and company</b>. First market map of 2,558 companies, 101 in Tier 1.</div></div>
-    <div class="step" data-step="3"><div class="d">30 Sep</div><div class="x">Claude skills pack installed with you, Microsoft 365 and Exa connected; you connected SourceWhale. Komal's audit of your profile and 62 posts.</div></div>
-    <div class="step" data-step="4"><div class="d">1 Oct</div><div class="x">First weekly call: companies up to about 5,000 staff, five major metros outside the tristate (Chicago, Charlotte, Miami, Philadelphia, Dallas), body shops out, and "partnership" in place of "retained".</div></div>
-  </div>
-</section>
-
-<!-- 10 Map and copy -->
-<section class="slide" data-name="Market map and copy">
-  <div class="kicker">5 to 18 October · Market map and copy</div>
-  <h2>Lists you approved, words you signed off</h2>
-  <div class="steps">
-    <div class="step" data-step="1"><div class="d">Week 3</div><div class="x">Market map rebuilt to your rules. LinkedIn copy for four angles: open jobs, leadership moves, AI lines and warm outreach.</div></div>
-    <div class="step" data-step="2"><div class="d">Week 3</div><div class="x">Three lead magnets for cold contacts with no signal: Client Ready AI Hire Gate, Decide in Days and The Opportunity Story. Everything filed in your shared Drive, bookmarked in Slack.</div></div>
-    <div class="step" data-step="3"><div class="d">8 Oct</div><div class="x">We flagged that sending Bullhorn tear sheets from nitruc.io in one go puts your main domain at risk, and started looking for a separate way to send.</div></div>
-    <div class="step" data-step="4"><div class="d">16 Oct</div><div class="x">You signed off all the copy. Accenture parked. The tristate hot list: about 100 live roles, each with the HR contact and two technical leaders, emails and direct numbers.</div></div>
-  </div>
-</section>
-
-<!-- 11 Launch -->
-<section class="slide" data-name="Launch and sending">
-  <div class="kicker">19 October to 1 November · Launch</div>
-  <h2>Campaigns live, sending made safe</h2>
-  <div class="steps">
-    <div class="step" data-step="1"><div class="d">19 to 20 Oct</div><div class="x">All four Dripify campaigns built and switched on. You saw them running on 22 Oct.</div></div>
-    <div class="step" data-step="2"><div class="d">21 Oct</div><div class="x">Your proposal generator rebuilt with your logo, navy, green and tagline, installed with you on the call.</div></div>
-    <div class="step" data-step="3"><div class="d">22 Oct</div><div class="x">beehiiv set up through GoDaddy, then locked by its compliance team for review before anything was sent. Kit set up and tested three times as the second option.</div></div>
-    <div class="step" data-step="4"><div class="d">27 to 30 Oct</div><div class="x">nitruc.tech moved to Zapmail: mailboxes under your name, warm-up on, replies forwarded to nitruc.io. We found your LinkedIn invite limit runs out by Tuesday each week.</div></div>
-  </div>
-</section>
-
-<!-- 12 Bullhorn -->
-<section class="slide tinted" data-name="Bullhorn and Claude">
-  <div class="kicker">How Bullhorn got connected to your Claude</div>
-  <h2>From copy and paste to a live connection</h2>
-  <div class="steps">
-    <div class="step" data-step="1"><div class="d">30 Sep</div><div class="x">Claude setup call: Bullhorn's API needs a client ID, a secret and an API user from Bullhorn support. <em>We parked it and worked inside your Bullhorn seat.</em></div></div>
-    <div class="step" data-step="2"><div class="d">3 to 5 Nov</div><div class="x">Bullhorn won't export a tear sheet with its name, and caps lists at 200 at a time, so 19 tear sheets were copied into Kit by hand. On the 5 Nov call we agreed the API was the way forward.</div></div>
-    <div class="step" data-step="3"><div class="d">5 to 9 Nov</div><div class="x">API credentials requested (ticket 06227147). We drafted your reply to Support on 6 Nov. You called Bullhorn on 9 Nov and the credentials came by secure email that day.</div></div>
-    <div class="step" data-step="4"><div class="d">9 to 11 Nov</div><div class="x">We connected on a call on 9 Nov and the API went live, read only. Counts on the first tear sheets matched Bullhorn exactly, and by 11 Nov every tear sheet on your list was pulled.</div></div>
-    <div class="step" data-step="5"><div class="d">16 Nov</div><div class="x">Daniyal installed the Bullhorn connector in your Claude desktop app on our 11am call. It read your <b>405 tear sheets</b> and your candidates, and we set up a Bullhorn project for your searches.</div></div>
+<!-- How we built it -->
+<section class="slide tinted" data-name="How we built it">
+  <div class="kicker">21 September to 16 November</div>
+  <h2>How the engine was built</h2>
+  <div class="grid" style="grid-template-columns:1fr 1fr; gap:14px">
+    <div class="card panel rise"><small>21 Sep to 4 Oct</small><h3>Foundations</h3><ul class="mini">
+      <li><b>24 Sep</b> Launch call: ICP set, your 11 clients became the do not contact list.</li>
+      <li><b>29 Sep</b> 144 of about 9,200 leadership connections fit. First market map, 2,558 companies.</li>
+      <li><b>30 Sep</b> Claude skills installed with you; Microsoft 365 and Exa connected.</li>
+      <li><b>1 Oct</b> Up to 5,000 staff, five major metros, body shops out.</li></ul></div>
+    <div class="card panel rise"><small>5 to 18 Oct</small><h3>Market map and copy</h3><ul class="mini">
+      <li><b>Week 3</b> Map rebuilt to your rules. Copy for open jobs, leadership moves, AI lines and warm.</li>
+      <li><b>Week 3</b> Three lead magnets, all filed in your shared Drive.</li>
+      <li><b>8 Oct</b> Flagged the risk of sending tear sheets from nitruc.io.</li>
+      <li><b>16 Oct</b> Copy signed off; hot list of about 100 live roles with contacts.</li></ul></div>
+    <div class="card panel rise"><small>19 Oct to 1 Nov</small><h3>Launch and sending</h3><ul class="mini">
+      <li><b>19 to 20 Oct</b> All four Dripify campaigns live.</li>
+      <li><b>21 Oct</b> Proposal generator rebuilt in your branding.</li>
+      <li><b>22 Oct</b> beehiiv locked for review; Kit set up and tested instead.</li>
+      <li><b>27 to 30 Oct</b> nitruc.tech mailboxes on Zapmail, warm-up on, replies forwarded.</li></ul></div>
+    <div class="card panel rise"><small>30 Sep to 16 Nov</small><h3>Bullhorn connected to your Claude</h3><ul class="mini">
+      <li><b>30 Sep</b> API needs credentials from Bullhorn; parked.</li>
+      <li><b>5 to 9 Nov</b> Requested (ticket 06227147); credentials came 9 Nov after your call.</li>
+      <li><b>9 to 11 Nov</b> API live, read only; tear sheet counts matched exactly.</li>
+      <li><b>16 Nov</b> Connector installed in your Claude; it read your 405 tear sheets.</li></ul></div>
   </div>
 </section>
 
@@ -364,54 +315,28 @@ table.t tr.win td{background:var(--tint); font-weight:600}
   <div class="foot">Source: Kit broadcast report, 17 Nov 2026 send, read 23 Nov.</div>
 </section>
 
-<!-- 14 Reading the newsletter -->
-<section class="slide tinted" data-name="Reading the newsletter">
-  <div class="kicker">Reading the newsletter honestly</div>
-  <h2>Opens are real, many clicks are machines</h2>
-  <div class="row" style="gap:36px; align-items:flex-start">
-    <div style="flex:1; display:flex; flex-direction:column; gap:14px">
-      <div class="lbl" style="font-weight:600">Unique clicks per link</div>
-      <div><div class="lbl">Your website, nitruc.io · 1,325</div><div class="bar" style="height:24px"><i style="--w:99%"></i></div></div>
-      <div><div class="lbl">Reply by email link · 1,337</div><div class="bar" style="height:24px"><i style="--w:100%"></i></div></div>
-      <div><div class="lbl">Footer link Kit adds itself · 1,282</div><div class="bar cy" style="height:24px"><i style="--w:96%"></i></div></div>
-      <p data-step="1" style="font-size:18px">People rarely click a footer link as often as the main one. An even split like this usually means company email security scanners opened every link, so <b>replies are the number to watch</b>.</p>
-    </div>
-    <div class="grid" style="grid-template-columns:1fr; gap:12px; flex:1">
-      <div class="card" data-step="2"><h3>809 bounced, 4 spam complaints</h3><div class="lbl">9% of the send bounced. Kit can restrict accounts with high bounce rates, so this needs fixing before the Salary Outlook goes. The next slide shows where the bounces came from.</div></div>
-      <div class="card" data-step="3"><h3>Kit's permission rule</h3><div class="lbl">Kit's terms ask that every subscriber has agreed to receive email. Tear sheets are CRM contacts, so we suggest a clear subscribe or unsubscribe line and a signup link in each issue.</div></div>
-    </div>
-  </div>
-  <div class="foot">Source: Kit API, broadcast clicks and subscriber status counts, read 23 Nov 2026.</div>
-</section>
-
-<!-- 14b Bounces -->
-<section class="slide" data-name="Bounces need attention">
+<!-- Newsletter health -->
+<section class="slide tinted" data-name="Newsletter health">
   <div class="kicker">Needs your attention</div>
-  <h2>701 addresses on the list no longer work</h2>
-  <div class="row" style="gap:36px; align-items:flex-start">
+  <h2>Opens are real; the list needs cleaning</h2>
+  <div class="row" style="gap:32px; align-items:flex-start">
+    <div style="flex:1; display:flex; flex-direction:column; gap:12px">
+      <div class="lbl" style="font-weight:600">Unique clicks per link</div>
+      <div><div class="lbl">Your website, nitruc.io · 1,325</div><div class="bar" style="height:20px"><i style="--w:99%"></i></div></div>
+      <div><div class="lbl">Reply by email link · 1,337</div><div class="bar" style="height:20px"><i style="--w:100%"></i></div></div>
+      <div><div class="lbl">Footer link Kit adds itself · 1,282</div><div class="bar cy" style="height:20px"><i style="--w:96%"></i></div></div>
+      <p data-step="1" style="font-size:17px">People rarely click a footer link as often as the main one. An even split like this usually means company email scanners opened every link, so <b>replies are the number to watch</b>.</p>
+    </div>
     <div style="flex:1; display:flex; flex-direction:column; gap:12px">
       <div class="row" style="gap:12px">
-        <div class="card rise" style="flex:1"><div class="big" data-count="809">0</div><div class="lbl">bounced on the 17 Nov send, 9% of 8,948</div></div>
-        <div class="card rise" style="flex:1"><div class="big" data-count="701">0</div><div class="lbl">permanent bounces: the address is dead, and Kit has stopped sending to it</div></div>
+        <div class="card rise" style="flex:1"><div class="big" data-count="809">0</div><div class="lbl">bounced, 9% of the send</div></div>
+        <div class="card rise" style="flex:1"><div class="big" data-count="673">0</div><div class="lbl">Bullhorn addresses that no longer work</div></div>
       </div>
-      <div class="lbl" style="font-weight:600; margin-top:4px">Where the 701 dead addresses came from</div>
-      <div><div class="lbl">Bullhorn, main email field · 620</div><div class="bar" style="height:22px"><i style="--w:100%"></i></div></div>
-      <div><div class="lbl">Bullhorn, Email 2 and 3 · 53</div><div class="bar" style="height:22px"><i style="--w:8.5%"></i></div></div>
-      <div><div class="lbl">Found by RecruiterGTM (Prospeo) · 28</div><div class="bar cy" style="height:22px"><i style="--w:4.5%"></i></div></div>
-    </div>
-    <div style="flex:1; display:flex; flex-direction:column; gap:12px">
-      <table class="t sm" data-step="1">
-        <thead><tr><th>Source</th><th class="r">In Kit</th><th class="r">Dead</th><th class="r">Rate</th></tr></thead>
-        <tbody>
-          <tr class="win"><td>Bullhorn emails</td><td class="n">8,499</td><td class="n">673</td><td class="n">7.9%</td></tr>
-          <tr><td>Emails we found</td><td class="n">455</td><td class="n">28</td><td class="n">6.2%</td></tr>
-        </tbody>
-      </table>
-      <p data-step="2" style="font-size:18px">96% of the dead addresses came from Bullhorn, and about 1 in 12 of its main emails no longer works.</p>
-      <p data-step="3" style="font-size:18px"><b>Ask:</b> clean or re-verify the Bullhorn emails before the next send. We recheck the emails we found the same way before they are used again.</p>
+      <p data-step="2" style="font-size:17px">620 came from Bullhorn's main email field and 53 from Email 2 and 3. About 1 in 12 of the main emails sent no longer works. Kit has already stopped sending to them.</p>
+      <p data-step="3" style="font-size:17px"><b>Ask:</b> clean or re-verify the Bullhorn emails before the next send. Kit can restrict accounts with high bounce rates, and a healthy list bounces under about 2%.</p>
     </div>
   </div>
-  <div class="foot">Source: Kit broadcast report (809) and subscriber status from the Kit API (701), read 23 Nov 2026, matched to Bullhorn's Email 1 to 3 and our Prospeo column. The other 108 are temporary bounces; those people stay active. A healthy list bounces under about 2%. Full list of the 701 shared separately.</div>
+  <div class="foot">Source: Kit broadcast report and Kit API, read 23 Nov 2026, matched to Bullhorn's Email 1 to 3. 4 spam complaints. Full list of the dead addresses shared separately.</div>
 </section>
 
 <!-- 15 Keep out -->
@@ -426,24 +351,6 @@ table.t tr.win td{background:var(--tint); font-weight:600}
     <div class="card rise"><h3>Opt-outs and red names</h3><div class="lbl">Bullhorn opt-outs, and the people you marked red while you talk to them about moving.</div></div>
     <div class="card rise"><h3>People who moved</h3><div class="lbl">Every contact rechecked against their current employer and country before outreach.</div></div>
   </div>
-</section>
-
-<!-- 16 Lists -->
-<section class="slide" data-name="Lists built for you">
-  <div class="kicker">Refreshed 20 November</div>
-  <h2>Lists ready for the next round</h2>
-  <table class="t">
-    <thead><tr><th>List</th><th>Size</th><th>Feeds</th></tr></thead>
-    <tbody>
-      <tr data-step="1"><td>Open jobs, last two months, with HR and technical contacts</td><td class="n">74 companies · 93 contacts</td><td>Cold Outreach, Open Jobs</td></tr>
-      <tr data-step="2"><td>Your connections at companies hiring in your niche</td><td class="n">46 people</td><td>Warm, Open Jobs</td></tr>
-      <tr data-step="3"><td>Your connections at companies not hiring</td><td class="n">30 people</td><td>Warm, Not Hiring</td></tr>
-      <tr data-step="4"><td>Leaders who joined a TAM company in the last three months</td><td class="n">13 people</td><td>Leadership moves</td></tr>
-      <tr data-step="5"><td>AI Lines contacts with email or phone</td><td class="n">1,573 people</td><td>AI Lines</td></tr>
-      <tr data-step="6"><td>Data and AI companies in your five metros, for the Salary Outlook</td><td class="n">223 companies</td><td>New Salary Outlook campaign</td></tr>
-    </tbody>
-  </table>
-  <div class="foot">Cold Open Jobs also has 139 leads still in progress, including 52 added on 20 Nov.</div>
 </section>
 
 <!-- 17 Salary Outlook angle -->
@@ -472,51 +379,23 @@ table.t tr.win td{background:var(--tint); font-weight:600}
   <div class="foot">Source: nitruc target account list v5, filtered 23 Nov 2026. Full company list and copy draft shared separately for your review.</div>
 </section>
 
-<!-- 18 Learned -->
-<section class="slide" data-name="What we learned">
-  <div class="kicker">What we learned</div>
-  <h2>Six things that shape the next month</h2>
-  <div class="grid" style="grid-template-columns:repeat(3,1fr)">
-    <div class="card rise"><h3>A number beats a pitch</h3><div class="lbl">The proof-point Message 1 got 4 replies to 0. It becomes the default.</div></div>
-    <div class="card rise"><h3>Warm beats cold</h3><div class="lbl">Your connections reply at 14 to 25% against under 3% cold, so warm lists get refreshed first.</div></div>
-    <div class="card rise"><h3>LinkedIn invites are the bottleneck</h3><div class="lbl">Your weekly limit runs out by Tuesday. We share it across campaigns and move more volume to email.</div></div>
-    <div class="card rise"><h3>Replies, not clicks</h3><div class="lbl">Newsletter clicks are inflated by scanners. Replies and calls are what we report on.</div></div>
-    <div class="card rise"><h3>Protect nitruc.io</h3><div class="lbl">Bulk sends go from separate domains, and lists get cleaned before each send. 9% bounced this time.</div></div>
-    <div class="card rise"><h3>Bullhorn needs the API</h3><div class="lbl">Its screens won't export tear sheets cleanly. The API is live, so lists come straight across.</div></div>
-  </div>
-</section>
-
-<!-- 19 Next -->
+<!-- Next -->
 <section class="slide" data-name="Next steps">
   <div class="kicker">Week of 23 November</div>
-  <h2>What happens next</h2>
-  <div class="grid" style="grid-template-columns:repeat(3,1fr); align-items:start">
+  <h2>What we need from you</h2>
+  <div class="grid" style="grid-template-columns:1fr 1fr; align-items:start; gap:20px">
     <div class="card rise"><h3>You</h3><ul class="tick">
-      <li style="font-size:17px">Clean or re-verify the Bullhorn emails before the next send.</li>
-      <li style="font-size:17px">Approve or edit the Salary Outlook copy.</li>
-      <li style="font-size:17px">Strike any company on the list you'd rather we didn't approach.</li>
-      <li style="font-size:17px">Send your current-client file and any new public tear sheets.</li>
-      <li style="font-size:17px">Keep testing the Bullhorn connector.</li></ul></div>
-    <div class="card rise"><h3>RecruiterGTM</h3><ul class="tick">
-      <li style="font-size:17px">Make the proof-point Message 1 the default.</li>
-      <li style="font-size:17px">Settle the 18 on hold, find the leaders, load the Outlook campaign as a draft.</li>
-      <li style="font-size:17px">Recheck the emails we found, and send you opt-in wording for Kit.</li>
-      <li style="font-size:17px">Current clients into Kit under their own tag. DMARC review for nitructech.com.</li></ul></div>
-    <div class="card rise"><h3>Together</h3><ul class="tick">
-      <li style="font-size:17px">Monday 10am Eastern: results, split test and new angles.</li>
-      <li style="font-size:17px">Next week: read the replies from all four campaigns and the newsletter.</li></ul></div>
+      <li style="font-size:18px">Clean or re-verify the Bullhorn emails before the next send.</li>
+      <li style="font-size:18px">Send your current-client file, so it goes into Kit under its own tag.</li>
+      <li style="font-size:18px">Keep new tear sheets public in Bullhorn and send us their names.</li>
+      <li style="font-size:18px">Keep testing the Bullhorn connector and tell us what to change.</li></ul></div>
+    <div class="card rise"><h3>Approvals</h3><ul class="checks">
+      <li data-step="1"><b>The list.</b> 223 data and AI companies in your five metros. Strike any you know or would rather not approach.</li>
+      <li data-step="2"><b>The angle.</b> A cold campaign that offers your 2027 Salary Outlook.</li>
+      <li data-step="3"><b>The copy.</b> The LinkedIn messages, versions A and B of Message 1, and the follow-up emails.</li>
+      <li data-step="4"><b>The new default.</b> The proof-point Message 1 in both open jobs campaigns.</li></ul></div>
   </div>
 </section>
-
-<!-- 20 Close -->
-<section class="slide dark" data-name="Close">
-  <div class="orbit"><span class="dot"></span><span class="dot b"></span><span class="dot c"></span></div>
-  <div class="kicker rise">RecruiterGTM · Shmookh, Reyhan, Daniyal and Komal</div>
-  <h1 class="rise" style="margin-top:150px">Thank you, <span class="grad">Dan</span></h1>
-  <p class="rise" style="font-size:24px">Questions on anything in here, bring them to Monday's call.</p>
-  <div class="foot rise">Sources: Dripify (campaign and sequence views, 23 Nov 2026), Kit API (read 23 Nov 2026), nitruc target account list v5, Slack #nitruc-outboundos, and Fireflies notes of our calls from 24 Sep to 17 Nov 2026.</div>
-</section>
-
 </div></div>
 
 <div id="bar">
