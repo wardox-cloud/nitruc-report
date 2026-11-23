@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nitruc Progress Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600&display=swap">
+<style>
+/* Layout: a 16:9 stage scaled to the window, one slide at a time, builds on arrow keys. RecruiterGTM purple, violet and cyan on a deep night ground. Single deliberate look. */
+:root{
+  --night:#131628; --night-2:#1a1035; --plum:#2d1b69; --purple:#a020f0; --violet:#6f00ff; --cyan:#62cef0;
+  --paper:#ffffff; --tint:#f3e8ff; --ink:#1a1035; --ink-2:#4b4466; --line:#e4dcf5; --good:#13a36b; --warn:#d98a1c;
+  --display:"Barlow Condensed", "Arial Narrow", Arial, sans-serif;
+  --body:"Barlow", "Segoe UI", Arial, sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0; background:var(--night); color:var(--paper); font-family:var(--body); overflow:hidden}
+#viewport{position:fixed; inset:0; display:grid; place-items:center; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); padding-block:16px 64px}
+#stage{width:1280px; height:720px; position:relative; transform-origin:center center; flex:none}
+.slide{position:absolute; inset:0; border-radius:18px; overflow:hidden; padding:56px 68px; display:flex; flex-direction:column; gap:22px;
+  background:var(--paper); color:var(--ink); opacity:0; visibility:hidden; transform:translateY(18px) scale(.985); transition:opacity .5s ease, transform .6s cubic-bezier(.2,.8,.2,1), visibility 0s .5s;
+  box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.slide.on{opacity:1; visibility:visible; transform:none; transition:opacity .5s ease, transform .6s cubic-bezier(.2,.8,.2,1)}
+.slide.dark{background:radial-gradient(1200px 700px at 85% 10%, rgba(160,32,240,.35), transparent 60%), radial-gradient(900px 600px at 0% 100%, rgba(98,206,240,.22), transparent 60%), var(--night-2); color:var(--paper)}
+.slide.tinted{background:linear-gradient(180deg, var(--tint), #fff 70%)}
+.kicker{font-family:var(--display); font-weight:700; letter-spacing:.14em; text-transform:uppercase; font-size:16px; color:var(--purple)}
+.dark .kicker{color:var(--cyan)}
+h1,h2,h3{font-family:var(--display); margin:0; line-height:1.02; text-wrap:balance}
+h1{font-size:92px; font-weight:800; letter-spacing:-.01em}
+h2{font-size:52px; font-weight:800; color:var(--ink)}
+.dark h2{color:var(--paper)}
+h3{font-size:24px; font-weight:700}
+p{margin:0; font-size:20px; line-height:1.45; color:var(--ink-2); max-width:62ch}
+.dark p{color:#d9d2f0}
+.grad{background:linear-gradient(90deg, var(--purple), var(--violet) 45%, var(--cyan)); -webkit-background-clip:text; background-clip:text; color:transparent}
+.row{display:flex; gap:18px}
+.grid{display:grid; gap:16px}
+.card{background:#fff; border:1px solid var(--line); border-radius:14px; padding:18px 20px; display:flex; flex-direction:column; gap:8px; box-shadow:4px 4px 0 0 rgba(111,0,255,.12)}
+.dark .card{background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.14); box-shadow:none}
+.big{font-family:var(--display); font-weight:800; font-size:64px; line-height:1; color:var(--violet); font-variant-numeric:tabular-nums}
+.dark .big{color:var(--paper)}
+.lbl{font-size:16px; color:var(--ink-2); line-height:1.3}
+.dark .lbl{color:#cfc6ee}
+.chip{display:inline-flex; align-items:center; gap:6px; font-size:14px; font-weight:600; padding:4px 10px; border-radius:999px; background:var(--tint); color:var(--violet)}
+.dark .chip{background:rgba(98,206,240,.15); color:var(--cyan)}
+/* builds */
+[data-step]{opacity:0; transform:translateY(14px); transition:opacity .45s ease, transform .55s cubic-bezier(.2,.8,.2,1)}
+[data-step].shown{opacity:1; transform:none}
+.slide.on .rise{animation:rise .7s cubic-bezier(.2,.8,.2,1) both}
+.slide.on .rise:nth-child(2){animation-delay:.08s}.slide.on .rise:nth-child(3){animation-delay:.16s}.slide.on .rise:nth-child(4){animation-delay:.24s}.slide.on .rise:nth-child(5){animation-delay:.32s}.slide.on .rise:nth-child(6){animation-delay:.4s}
+@keyframes rise{from{opacity:0; transform:translateY(22px)}to{opacity:1; transform:none}}
+/* bars */
+.bar{height:12px; background:var(--tint); border-radius:999px; overflow:hidden}
+.bar i{display:block; height:100%; width:0; border-radius:999px; background:linear-gradient(90deg, var(--violet), var(--purple)); transition:width 1.2s cubic-bezier(.2,.8,.2,1) .2s}
+.bar.cy i{background:linear-gradient(90deg, #2bb3e0, var(--cyan))}
+.slide.on .bar i{width:var(--w)}
+/* title orbit */
+.orbit{position:absolute; right:-120px; top:-120px; width:640px; height:640px; border-radius:50%; border:1px solid rgba(255,255,255,.12)}
+.orbit::before,.orbit::after{content:""; position:absolute; inset:70px; border-radius:50%; border:1px dashed rgba(98,206,240,.35)}
+.orbit::after{inset:150px; border:1px solid rgba(160,32,240,.4)}
+.orbit .dot{position:absolute; left:50%; top:50%; width:14px; height:14px; margin:-7px; border-radius:50%; background:var(--cyan); box-shadow:0 0 18px var(--cyan); offset-path:circle(250px at 50% 50%); animation:orbit 9s linear infinite}
+.orbit .dot.b{background:var(--purple); box-shadow:0 0 18px var(--purple); offset-path:circle(170px at 50% 50%); animation-duration:6s; animation-direction:reverse}
+.orbit .dot.c{width:9px; height:9px; margin:-4.5px; background:#fff; offset-path:circle(320px at 50% 50%); animation-duration:14s}
+@keyframes orbit{from{offset-distance:0%}to{offset-distance:100%}}
+/* flow */
+.flow svg{width:100%; height:auto; overflow:visible}
+.node rect{fill:#fff; stroke:var(--line)}
+.node text{font-family:var(--body); font-size:15px; fill:var(--ink-2)}
+.node text.t{font-family:var(--display); font-weight:700; font-size:21px; fill:var(--ink)}
+.wire{fill:none; stroke:#cbbef0; stroke-width:2.5; stroke-dasharray:6 7}
+.bead{fill:var(--purple)} .bead.cy{fill:#2bb3e0}
+/* timeline */
+.tl{position:relative; margin-top:8px}
+.tl .axis{position:absolute; left:0; right:0; top:22px; height:4px; background:var(--tint); border-radius:4px; overflow:hidden}
+.tl .axis i{display:block; height:100%; width:0; background:linear-gradient(90deg, var(--violet), var(--purple), var(--cyan)); transition:width 2.2s ease .2s}
+.slide.on .tl .axis i{width:100%}
+.tl .pts{display:grid; grid-template-columns:repeat(9, 1fr); gap:8px; position:relative}
+.tl .pt{display:flex; flex-direction:column; gap:8px; align-items:flex-start}
+.tl .pt b{width:18px; height:18px; border-radius:50%; background:#fff; border:4px solid var(--violet); margin-top:15px}
+.tl .pt.hot b{border-color:var(--purple); box-shadow:0 0 0 6px rgba(160,32,240,.15)}
+.tl .pt small{font-family:var(--display); font-weight:700; font-size:15px; letter-spacing:.06em; text-transform:uppercase; color:var(--violet)}
+.tl .pt span{font-size:15px; line-height:1.3; color:var(--ink-2)}
+/* steps list */
+.steps{display:flex; flex-direction:column; gap:12px}
+.step{display:grid; grid-template-columns:92px 1fr; gap:16px; align-items:start; padding:12px 16px; border-radius:12px; background:#fff; border:1px solid var(--line)}
+.step .d{font-family:var(--display); font-weight:800; font-size:20px; color:var(--violet); line-height:1.2}
+.step .x{font-size:18px; line-height:1.4; color:var(--ink)}
+.step .x em{font-style:normal; color:var(--ink-2)}
+ul.tick{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px}
+ul.tick li{position:relative; padding-left:28px; font-size:19px; line-height:1.4; color:var(--ink)}
+ul.tick li::before{content:""; position:absolute; left:0; top:7px; width:14px; height:14px; border-radius:4px; background:linear-gradient(135deg, var(--violet), var(--purple))}
+.dark ul.tick li{color:#efeafc}
+table.t{border-collapse:collapse; width:100%; font-size:17px; font-variant-numeric:tabular-nums}
+table.t th{font-family:var(--display); text-transform:uppercase; letter-spacing:.06em; font-size:14px; color:var(--ink-2); text-align:left; padding:8px 12px; border-bottom:2px solid var(--line)}
+table.t td{padding:10px 12px; border-bottom:1px solid var(--line); color:var(--ink)}
+table.t td.n{text-align:right; font-weight:600}
+.foot{margin-top:auto; font-size:13px; color:#8b82a8}
+.dark .foot{color:#a79fc7}
+/* chrome */
+#bar{position:fixed; left:0; right:0; bottom:0; height:48px; display:flex; align-items:center; gap:14px; padding-bottom:env(safe-area-inset-bottom, 0px); padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); color:#cfc6ee; font-size:14px}
+#bar button{font:600 14px var(--body); color:#fff; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); border-radius:8px; padding:6px 12px; cursor:pointer}
+#bar button:focus-visible{outline:2px solid var(--cyan); outline-offset:2px}
+#prog{flex:1; height:4px; background:rgba(255,255,255,.1); border-radius:4px; overflow:hidden}
+#prog i{display:block; height:100%; width:0; background:linear-gradient(90deg, var(--violet), var(--purple), var(--cyan)); transition:width .4s ease}
+@media (prefers-reduced-motion: reduce){*{animation:none!important; transition:none!important}}
+
+table.t.sm{font-size:15px} table.t.sm td{padding:6px 10px} table.t.sm th{padding:6px 10px} table.t th.r{text-align:right}
+table.t tr.win td{background:var(--tint); font-weight:600}
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage">
+<!-- 1 Title -->
+<section class="slide dark" data-name="Title">
+  <div class="orbit"><span class="dot"></span><span class="dot b"></span><span class="dot c"></span></div>
+  <div class="kicker rise">Nitruc x RecruiterGTM · OutboundOS</div>
+  <h1 class="rise" style="margin-top:110px">Two months of<br><span class="grad">outbound, built and running</span></h1>
+  <p class="rise" style="font-size:24px">Progress report for Dan Curtin, from the 24 September launch to 23 November 2026, with the next angle for your approval.</p>
+  <div class="row rise" style="margin-top:auto; gap:10px"><span class="chip">4 live campaigns</span><span class="chip">Split test read</span><span class="chip">Newsletter on Kit</span><span class="chip">Bullhorn connected to Claude</span></div>
+</section>
+
+<!-- 2 At a glance -->
+<section class="slide" data-name="At a glance">
+  <div class="kicker">Where things stand on 23 November</div>
+  <h2>The numbers so far</h2>
+  <div class="grid" style="grid-template-columns:repeat(3,1fr); margin-top:6px">
+    <div class="card rise"><div class="big" data-count="1269">0</div><div class="lbl">people contacted, from 1,666 leads loaded</div></div>
+    <div class="card rise"><div class="big" data-count="17">0</div><div class="lbl">replies: 3 cold LinkedIn, 8 from your connections, 6 by email</div></div>
+    <div class="card rise"><div class="big"><span data-count="23">0</span>%</div><div class="lbl">of cold invites accepted (27 of 117), above the 20% we treat as good</div></div>
+    <div class="card rise"><div class="big">4 <span style="font-size:40px">to</span> 0</div><div class="lbl">replies for Message 1 version B over A, across both split tests</div></div>
+    <div class="card rise"><div class="big" data-count="1154">0</div><div class="lbl">campaign emails delivered from nitruc.tech</div></div>
+    <div class="card rise"><div class="big"><span data-count="36">0</span>%</div><div class="lbl">opened the newsletter, 3,226 of 8,948 people</div></div>
+  </div>
+  <div class="foot">Sources: Dripify campaign and sequence views, 23 Nov 2026. Kit broadcast report, 17 Nov send, read 23 Nov.</div>
+</section>
+
+<!-- 3 Engine -->
+<section class="slide tinted" data-name="How it fits together">
+  <div class="kicker">How it fits together</div>
+  <h2>One engine, three channels</h2>
+  <div class="flow" style="margin-top:4px">
+    <svg viewBox="0 0 1144 400" role="img" aria-label="Lists feed Dripify and email campaigns and the Kit newsletter; replies reach Dan">
+      <path id="w1" class="wire" d="M190 110 C 260 110, 270 70, 340 70"/>
+      <path id="w2" class="wire" d="M190 110 C 260 110, 270 200, 340 200"/>
+      <path id="w3" class="wire" d="M190 320 C 260 320, 270 330, 340 330"/>
+      <path id="w4" class="wire" d="M560 70 C 640 70, 660 180, 760 190"/>
+      <path id="w5" class="wire" d="M560 200 C 640 200, 680 195, 760 195"/>
+      <path id="w6" class="wire" d="M560 330 C 640 330, 660 210, 760 200"/>
+      <path id="w7" class="wire" d="M980 195 L 1040 195"/>
+      <g class="node"><rect x="10" y="50" width="180" height="120" rx="14"/><text class="t" x="28" y="92">Lists</text><text x="28" y="120">TAM, open jobs,</text><text x="28" y="142">warm, leaders</text></g>
+      <g class="node"><rect x="10" y="260" width="180" height="120" rx="14"/><text class="t" x="28" y="302">Bullhorn</text><text x="28" y="330">tear sheets via</text><text x="28" y="352">the API</text></g>
+      <g class="node"><rect x="340" y="30" width="220" height="80" rx="14"/><text class="t" x="360" y="64">LinkedIn</text><text x="360" y="90">Dripify, 4 campaigns</text></g>
+      <g class="node"><rect x="340" y="160" width="220" height="80" rx="14"/><text class="t" x="360" y="194">Email</text><text x="360" y="220">10 mailboxes, nitruc.tech</text></g>
+      <g class="node"><rect x="340" y="290" width="220" height="80" rx="14"/><text class="t" x="360" y="324">Newsletter</text><text x="360" y="350">Kit, 8,948 recipients</text></g>
+      <g class="node"><rect x="760" y="140" width="220" height="110" rx="14"/><text class="t" x="780" y="180">Replies</text><text x="780" y="206">forwarded to</text><text x="780" y="228">dcurtin@nitruc.io</text></g>
+      <g class="node"><rect x="1040" y="150" width="96" height="90" rx="45" style="fill:#6f00ff;stroke:#6f00ff"/><text class="t" x="1062" y="203" style="fill:#fff">Dan</text></g>
+      <circle r="7" class="bead"><animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#w1"/></animateMotion></circle>
+      <circle r="7" class="bead cy"><animateMotion dur="2.9s" begin=".6s" repeatCount="indefinite"><mpath href="#w2"/></animateMotion></circle>
+      <circle r="7" class="bead"><animateMotion dur="2.4s" begin=".3s" repeatCount="indefinite"><mpath href="#w3"/></animateMotion></circle>
+      <circle r="7" class="bead cy"><animateMotion dur="2.8s" begin="1s" repeatCount="indefinite"><mpath href="#w4"/></animateMotion></circle>
+      <circle r="7" class="bead"><animateMotion dur="2.2s" begin=".2s" repeatCount="indefinite"><mpath href="#w5"/></animateMotion></circle>
+      <circle r="7" class="bead cy"><animateMotion dur="3s" begin=".8s" repeatCount="indefinite"><mpath href="#w6"/></animateMotion></circle>
+      <circle r="7" class="bead"><animateMotion dur="1.4s" repeatCount="indefinite"><mpath href="#w7"/></animateMotion></circle>
+    </svg>
+  </div>
+  <p>Your main domain, nitruc.io, sends nothing in bulk. Campaign email and the newsletter go out from separate domains, and every reply lands in your own inbox.</p>
+</section>
+
+<!-- 4 Campaigns -->
+<section class="slide" data-name="The four campaigns">
+  <div class="kicker">Dripify · live since 19 and 20 October</div>
+  <h2>The four campaigns</h2>
+  <div class="grid" style="grid-template-columns:repeat(2,1fr)">
+    <div class="card rise"><h3>Cold Outreach, Open Jobs</h3><div class="lbl">Hiring managers at TAM companies with a live data or AI role</div>
+      <div class="lbl">117 of 166 contacted</div><div class="bar"><i style="--w:70%"></i></div>
+      <div class="lbl">Accepted 23.1% (27) · replied 2.6% (3) · 50 emails delivered, 0 bounced</div></div>
+    <div class="card rise"><h3>AI Lines (email only)</h3><div class="lbl">Decision makers, each opened with a line about their company</div>
+      <div class="lbl">1,108 of 1,456 contacted</div><div class="bar"><i style="--w:76%"></i></div>
+      <div class="lbl">1,104 delivered (98.3%) · replied 0.5% (6) · under 1% bounced</div></div>
+    <div class="card rise"><h3>Warm Outreach, Open Jobs</h3><div class="lbl">Your first-degree connections at companies hiring in your niche</div>
+      <div class="lbl">28 of 28 contacted</div><div class="bar cy"><i style="--w:100%"></i></div>
+      <div class="lbl">Replied 14.3% (4)</div></div>
+    <div class="card rise"><h3>Warm Outreach, Not Hiring</h3><div class="lbl">Your first-degree connections at companies with no open role</div>
+      <div class="lbl">16 of 16 contacted</div><div class="bar cy"><i style="--w:100%"></i></div>
+      <div class="lbl">Replied 25% (4)</div></div>
+  </div>
+  <div class="foot">Source: Dripify dashboard, 23 Nov 2026. Reply % is replies over leads contacted, as Dripify shows it.</div>
+</section>
+
+<!-- 5 What the numbers say -->
+<section class="slide tinted" data-name="What the numbers say">
+  <div class="kicker">What the numbers say</div>
+  <h2>Your network answers first, and cold is on target</h2>
+  <div class="row" style="gap:40px; align-items:flex-end; margin-top:6px">
+    <div style="flex:1; display:flex; flex-direction:column; gap:14px">
+      <div><div class="lbl">Warm, Not Hiring · 25%</div><div class="bar cy" style="height:28px"><i style="--w:100%"></i></div></div>
+      <div><div class="lbl">Warm, Open Jobs · 14.3%</div><div class="bar cy" style="height:28px"><i style="--w:57%"></i></div></div>
+      <div><div class="lbl">Cold, Open Jobs · 2.6%</div><div class="bar" style="height:28px"><i style="--w:10.4%"></i></div></div>
+      <div><div class="lbl">AI Lines, email · 0.5%</div><div class="bar" style="height:28px"><i style="--w:2%"></i></div></div>
+    </div>
+    <div style="flex:1; display:flex; flex-direction:column; gap:16px">
+      <p data-step="1">Warm campaigns reply at <b>14 to 25%</b>, which is why the warm lists were refreshed first on 20 November.</p>
+      <p data-step="2">Cold LinkedIn is working: <b>23.1% accepted</b> against a 20% benchmark, and <b>2.6% replied</b>, inside the 1 to 3% we expect from cold.</p>
+      <p data-step="3">The Cold Open Jobs message got <b>Kim Nguyen</b>, who heads recruiting, onto an intro call with you on 10 Nov.</p>
+    </div>
+  </div>
+  <div class="foot">Benchmarks are RecruiterGTM's working ranges for cold LinkedIn, not a Dripify figure.</div>
+</section>
+
+<!-- 6 Step by step -->
+<section class="slide" data-name="Step by step">
+  <div class="kicker">Inside each sequence</div>
+  <h2>Which step got the replies</h2>
+  <div class="row" style="gap:28px; align-items:flex-start">
+    <table class="t sm" style="flex:1">
+      <thead><tr><th>Cold, Open Jobs</th><th class="r">Sent</th><th class="r">Replies</th></tr></thead>
+      <tbody>
+        <tr><td>Connection request</td><td class="n">117</td><td class="n">26 accepted</td></tr>
+        <tr><td>Message 1 A</td><td class="n">8</td><td class="n">0</td></tr>
+        <tr class="win"><td>Message 1 B</td><td class="n">16</td><td class="n">2</td></tr>
+        <tr><td>Message 2</td><td class="n">13</td><td class="n">1</td></tr>
+        <tr><td>Message 3</td><td class="n">6</td><td class="n">0</td></tr>
+        <tr><td>Emails, 8 steps</td><td class="n">83</td><td class="n">0</td></tr>
+      </tbody>
+      <thead><tr><th>AI Lines</th><th></th><th></th></tr></thead>
+      <tbody>
+        <tr><td>Email 1</td><td class="n">1,123</td><td class="n">3</td></tr>
+        <tr><td>Email 2</td><td class="n">1,104</td><td class="n">3</td></tr>
+        <tr><td>Email 3</td><td class="n">1,098</td><td class="n">0</td></tr>
+      </tbody>
+    </table>
+    <table class="t sm" style="flex:1">
+      <thead><tr><th>Warm, Open Jobs</th><th class="r">Sent</th><th class="r">Replies</th></tr></thead>
+      <tbody>
+        <tr><td>Message 1 A</td><td class="n">16</td><td class="n">0</td></tr>
+        <tr class="win"><td>Message 1 B</td><td class="n">12</td><td class="n">2</td></tr>
+        <tr><td>Message 2</td><td class="n">26</td><td class="n">2</td></tr>
+        <tr><td>Message 3</td><td class="n">24</td><td class="n">0</td></tr>
+      </tbody>
+      <thead><tr><th>Warm, Not Hiring</th><th></th><th></th></tr></thead>
+      <tbody>
+        <tr><td>Message 1</td><td class="n">16</td><td class="n">1</td></tr>
+        <tr><td>Message 2</td><td class="n">15</td><td class="n">0</td></tr>
+        <tr class="win"><td>Message 3, "check back in the new year"</td><td class="n">15</td><td class="n">3</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="foot">Source: Dripify sequence step analytics, 23 Nov 2026. The step view shows 26 accepted where the campaign list shows 27; Dripify counts them at different moments.</div>
+</section>
+
+<!-- 7 Split test -->
+<section class="slide tinted" data-name="Split test">
+  <div class="kicker">The split test</div>
+  <h2>The version with a number got every reply</h2>
+  <div class="row" style="gap:40px; align-items:center">
+    <div style="flex:1; display:flex; flex-direction:column; gap:18px">
+      <div class="card rise"><div class="lbl">Message 1, version A: the approach, no number</div><div class="big" style="color:#8b82a8">0 <span style="font-size:30px">of 24</span></div><div class="bar"><i style="--w:1%"></i></div></div>
+      <div class="card rise"><div class="lbl">Message 1, version B: "On average my searches close in 27 days"</div><div class="big">4 <span style="font-size:30px">of 28 · 14%</span></div><div class="bar"><i style="--w:100%"></i></div></div>
+    </div>
+    <ul class="tick" style="flex:1">
+      <li data-step="1">Both B versions give a concrete proof point before the question. Both A versions talk about the partnership approach without a number.</li>
+      <li data-step="2">4 to 0 is a clear direction on a small sample, so we treat it as the lead to follow, not settled proof.</li>
+      <li data-step="3">B becomes the default Message 1 in the open jobs campaigns.</li>
+      <li data-step="4">Email subjects, "{Company}'s AI pilots" against "{Company}'s data under your AI": 0 replies each from 25 sends, so no winner yet.</li>
+    </ul>
+  </div>
+  <div class="foot">Source: Dripify sequence step analytics, 23 Nov 2026, both campaigns with a split test combined.</div>
+</section>
+
+<!-- 8 Timeline -->
+<section class="slide" data-name="Nine weeks">
+  <div class="kicker">Nine weeks at a glance</div>
+  <h2>From launch call to live engine</h2>
+  <div class="tl" style="margin-top:20px">
+    <div class="axis"><i></i></div>
+    <div class="pts">
+      <div class="pt hot rise"><b></b><small>21 Sep</small><span>Launch call, ICP and do not contact list</span></div>
+      <div class="pt rise"><b></b><small>28 Sep</small><span>Connections analysed, first market map, Claude skills</span></div>
+      <div class="pt rise"><b></b><small>5 Oct</small><span>Map rebuilt to your rules, copy, lead magnets</span></div>
+      <div class="pt rise"><b></b><small>12 Oct</small><span>Copy signed off, open jobs hot list</span></div>
+      <div class="pt hot rise"><b></b><small>19 Oct</small><span>Four campaigns live, proposal skill rebranded</span></div>
+      <div class="pt rise"><b></b><small>26 Oct</small><span>nitruc.tech on Zapmail, Kit as newsletter</span></div>
+      <div class="pt rise"><b></b><small>2 Nov</small><span>Newsletter design approved, API requested</span></div>
+      <div class="pt hot rise"><b></b><small>9 Nov</small><span>Bullhorn API live, opt-outs out</span></div>
+      <div class="pt hot rise"><b></b><small>16 Nov</small><span>Bullhorn in Claude, newsletter sent, lists refreshed</span></div>
+    </div>
+  </div>
+  <p style="margin-top:auto">The next slides go through each stretch in detail.</p>
+</section>
+
+<!-- 9 Foundations -->
+<section class="slide" data-name="Foundations">
+  <div class="kicker">21 September to 4 October · Foundations</div>
+  <h2>Setting the rules and the base data</h2>
+  <div class="steps">
+    <div class="step" data-step="1"><div class="d">24 Sep</div><div class="x">Launch call. ICP agreed: boutique data and AI consulting first, life sciences and financial services second, senior roles and up, New York, New Jersey and Connecticut. <em>Your 11 clients became the do not contact list.</em></div></div>
+    <div class="step" data-step="2"><div class="d">29 Sep</div><div class="x">Your LinkedIn connections analysed: of about 9,200 leadership connections, <b>144 fit on title and company</b>. First market map of 2,558 companies, 101 in Tier 1.</div></div>
+    <div class="step" data-step="3"><div class="d">30 Sep</div><div class="x">Claude skills pack installed with you, Microsoft 365 and Exa connected; you connected SourceWhale. Komal's audit of your profile and 62 posts.</div></div>
+    <div class="step" data-step="4"><div class="d">1 Oct</div><div class="x">First weekly call: companies up to about 5,000 staff, five major metros outside the tristate (Chicago, Charlotte, Miami, Philadelphia, Dallas), body shops out, and "partnership" in place of "retained".</div></div>
+  </div>
+</section>
+
+<!-- 10 Map and copy -->
+<section class="slide" data-name="Market map and copy">
+  <div class="kicker">5 to 18 October · Market map and copy</div>
+  <h2>Lists you approved, words you signed off</h2>
+  <div class="steps">
+    <div class="step" data-step="1"><div class="d">Week 3</div><div class="x">Market map rebuilt to your rules. LinkedIn copy for four angles: open jobs, leadership moves, AI lines and warm outreach.</div></div>
+    <div class="step" data-step="2"><div class="d">Week 3</div><div class="x">Three lead magnets for cold contacts with no signal: Client Ready AI Hire Gate, Decide in Days and The Opportunity Story. Everything filed in your shared Drive, bookmarked in Slack.</div></div>
+    <div class="step" data-step="3"><div class="d">8 Oct</div><div class="x">We flagged that sending Bullhorn tear sheets from nitruc.io in one go puts your main domain at risk, and started looking for a separate way to send.</div></div>
+    <div class="step" data-step="4"><div class="d">16 Oct</div><div class="x">You signed off all the copy. Accenture parked. The tristate hot list: about 100 live roles, each with the HR contact and two technical leaders, emails and direct numbers.</div></div>
+  </div>
+</section>
+
+<!-- 11 Launch -->
+<section class="slide" data-name="Launch and sending">
+  <div class="kicker">19 October to 1 November · Launch</div>
+  <h2>Campaigns live, sending made safe</h2>
+  <div class="steps">
+    <div class="step" data-step="1"><div class="d">19 to 20 Oct</div><div class="x">All four Dripify campaigns built and switched on. You saw them running on 22 Oct.</div></div>
+    <div class="step" data-step="2"><div class="d">21 Oct</div><div class="x">Your proposal generator rebuilt with your logo, navy, green and tagline, installed with you on the call.</div></div>
+    <div class="step" data-step="3"><div class="d">22 Oct</div><div class="x">beehiiv set up through GoDaddy, then locked by its compliance team for review before anything was sent. Kit set up and tested three times as the second option.</div></div>
+    <div class="step" data-step="4"><div class="d">27 to 30 Oct</div><div class="x">nitruc.tech moved to Zapmail: mailboxes under your name, warm-up on, replies forwarded to nitruc.io. We found your LinkedIn invite limit runs out by Tuesday each week.</div></div>
+  </div>
+</section>
+
+<!-- 12 Bullhorn -->
+<section class="slide tinted" data-name="Bullhorn and Claude">
+  <div class="kicker">How Bullhorn got connected to your Claude</div>
+  <h2>From copy and paste to a live connection</h2>
+  <div class="steps">
+    <div class="step" data-step="1"><div class="d">30 Sep</div><div class="x">Claude setup call: Bullhorn's API needs a client ID, a secret and an API user from Bullhorn support. <em>We parked it and worked inside your Bullhorn seat.</em></div></div>
+    <div class="step" data-step="2"><div class="d">3 to 5 Nov</div><div class="x">Bullhorn won't export a tear sheet with its name, and caps lists at 200 at a time, so 19 tear sheets were copied into Kit by hand. On the 5 Nov call we agreed the API was the way forward.</div></div>
+    <div class="step" data-step="3"><div class="d">5 to 9 Nov</div><div class="x">API credentials requested (ticket 06227147). We drafted your reply to Support on 6 Nov. You called Bullhorn on 9 Nov and the credentials came by secure email that day.</div></div>
+    <div class="step" data-step="4"><div class="d">9 to 11 Nov</div><div class="x">We connected on a call on 9 Nov and the API went live, read only. Counts on the first tear sheets matched Bullhorn exactly, and by 11 Nov every tear sheet on your list was pulled.</div></div>
+    <div class="step" data-step="5"><div class="d">16 Nov</div><div class="x">Daniyal installed the Bullhorn connector in your Claude desktop app on our 11am call. It read your <b>405 tear sheets</b> and your candidates, and we set up a Bullhorn project for your searches.</div></div>
+  </div>
+</section>
+
+<!-- 13 Newsletter -->
+<section class="slide" data-name="The newsletter">
+  <div class="kicker">The newsletter</div>
+  <h2>"2 Data &amp; AI Officers, available now"</h2>
+  <div class="row" style="gap:28px; align-items:stretch">
+    <div class="grid" style="grid-template-columns:1fr 1fr; flex:1">
+      <div class="card rise"><div class="big"><span data-count="8948">0</span></div><div class="lbl">recipients, sent from Kit on Tue 17 Nov, 11:07am</div></div>
+      <div class="card rise"><div class="big"><span data-count="3226">0</span></div><div class="lbl">opened it, a 36.05% open rate</div></div>
+      <div class="card rise"><div class="big"><span data-count="1698">0</span></div><div class="lbl">clicked through, an 18.98% click rate</div></div>
+      <div class="card rise"><div class="big"><span data-count="40">0</span></div><div class="lbl">unsubscribed, 0.45% of recipients</div></div>
+    </div>
+    <ul class="tick" style="flex:1">
+      <li data-step="1">Design rebuilt for Outlook and desktop email, approved by you on 3 Nov.</li>
+      <li data-step="2">1,199 people had their address only in Email 2 or Email 3, and 844 more got a verified email from our tools. All are now included.</li>
+      <li data-step="3">Your Bullhorn opt-outs removed from Kit before any send, full list shared on 13 Nov.</li>
+      <li data-step="4">Sent 17 Nov with your chosen exclusions. Reply forwarding was set up again on 19 Nov and the 2 replies passed on to you.</li>
+      <li data-step="5">The 2027 Salary Outlook is built in Kit, with a Loom on building the next one yourself.</li>
+    </ul>
+  </div>
+  <div class="foot">Source: Kit broadcast report, 17 Nov 2026 send, read 23 Nov.</div>
+</section>
+
+<!-- 14 Reading the newsletter -->
+<section class="slide tinted" data-name="Reading the newsletter">
+  <div class="kicker">Reading the newsletter honestly</div>
+  <h2>Opens are real, many clicks are machines</h2>
+  <div class="row" style="gap:36px; align-items:flex-start">
+    <div style="flex:1; display:flex; flex-direction:column; gap:14px">
+      <div class="lbl" style="font-weight:600">Unique clicks per link</div>
+      <div><div class="lbl">Your website, nitruc.io · 1,325</div><div class="bar" style="height:24px"><i style="--w:99%"></i></div></div>
+      <div><div class="lbl">Reply by email link · 1,337</div><div class="bar" style="height:24px"><i style="--w:100%"></i></div></div>
+      <div><div class="lbl">Footer link Kit adds itself · 1,282</div><div class="bar cy" style="height:24px"><i style="--w:96%"></i></div></div>
+      <p data-step="1" style="font-size:18px">People rarely click a footer link as often as the main one. An even split like this usually means company email security scanners opened every link, so <b>replies are the number to watch</b>.</p>
+    </div>
+    <div class="grid" style="grid-template-columns:1fr; gap:12px; flex:1">
+      <div class="card" data-step="2"><h3>701 bounced, 4 spam complaints</h3><div class="lbl">On the Kit account. Kit can restrict accounts with high bounce rates, so bounced and old addresses come out before the Salary Outlook goes.</div></div>
+      <div class="card" data-step="3"><h3>Kit's permission rule</h3><div class="lbl">Kit's terms ask that every subscriber has agreed to receive email. Tear sheets are CRM contacts, so we suggest a clear subscribe or unsubscribe line and a signup link in each issue.</div></div>
+    </div>
+  </div>
+  <div class="foot">Source: Kit API, broadcast clicks and subscriber status counts, read 23 Nov 2026.</div>
+</section>
+
+<!-- 15 Keep out -->
+<section class="slide" data-name="What we keep out">
+  <div class="kicker">Data quality</div>
+  <h2>Who never gets a message</h2>
+  <div class="grid" style="grid-template-columns:repeat(3,1fr)">
+    <div class="card rise"><h3>Your clients</h3><div class="lbl">The 11 names you gave us plus IQVIA and their group companies, checked against every list before it loads.</div></div>
+    <div class="card rise"><h3>Accenture</h3><div class="lbl">Parked at your request on 15 Oct.</div></div>
+    <div class="card rise"><h3>Staffing firms</h3><div class="lbl">After two agency invites were accepted, we checked every company. 17 firms that sell staffing are cut from all new lists.</div></div>
+    <div class="card rise"><h3>Offshore shops</h3><div class="lbl">Companies headquartered abroad, or with most staff outside the US, such as Cognizant.</div></div>
+    <div class="card rise"><h3>Opt-outs and red names</h3><div class="lbl">Bullhorn opt-outs, and the people you marked red while you talk to them about moving.</div></div>
+    <div class="card rise"><h3>People who moved</h3><div class="lbl">Every contact rechecked against their current employer and country before outreach.</div></div>
+  </div>
+</section>
+
+<!-- 16 Lists -->
+<section class="slide" data-name="Lists built for you">
+  <div class="kicker">Refreshed 20 November</div>
+  <h2>Lists ready for the next round</h2>
+  <table class="t">
+    <thead><tr><th>List</th><th>Size</th><th>Feeds</th></tr></thead>
+    <tbody>
+      <tr data-step="1"><td>Open jobs, last two months, with HR and technical contacts</td><td class="n">74 companies · 93 contacts</td><td>Cold Outreach, Open Jobs</td></tr>
+      <tr data-step="2"><td>Your connections at companies hiring in your niche</td><td class="n">46 people</td><td>Warm, Open Jobs</td></tr>
+      <tr data-step="3"><td>Your connections at companies not hiring</td><td class="n">30 people</td><td>Warm, Not Hiring</td></tr>
+      <tr data-step="4"><td>Leaders who joined a TAM company in the last three months</td><td class="n">13 people</td><td>Leadership moves</td></tr>
+      <tr data-step="5"><td>AI Lines contacts with email or phone</td><td class="n">1,573 people</td><td>AI Lines</td></tr>
+      <tr data-step="6"><td>Data and AI companies in your five metros, for the Salary Outlook</td><td class="n">223 companies</td><td>New Salary Outlook campaign</td></tr>
+    </tbody>
+  </table>
+  <div class="foot">Cold Open Jobs also has 139 leads still in progress, including 52 added on 20 Nov.</div>
+</section>
+
+<!-- 17 Salary Outlook angle -->
+<section class="slide tinted" data-name="Salary Outlook angle">
+  <div class="kicker">New angle for your approval</div>
+  <h2>A cold campaign around your 2027 Salary Outlook</h2>
+  <div class="row" style="gap:32px; align-items:flex-start">
+    <div style="flex:1.1; display:flex; flex-direction:column; gap:12px">
+      <p style="font-size:18px">You said on 12 Nov the Outlook has been "absolute dynamite" with clients and candidates. This puts it in front of new leaders.</p>
+      <ul class="tick">
+        <li data-step="1">Blank connection request, then three LinkedIn messages. Message 1 offers the Outlook and you send the PDF on a yes, so every reply is a real signal.</li>
+        <li data-step="2">Two versions of Message 1 for the next split test: A offers the Outlook, B opens with one pay figure from it.</li>
+        <li data-step="3">Anyone who hasn't accepted in 14 days gets the same offer by email, as one thread.</li>
+        <li data-step="4">CDO, Chief AI Officer, VP or Head of Data, Analytics or AI; the founder or CTO at firms under 50 staff. 1 to 2 per company.</li>
+      </ul>
+    </div>
+    <div style="flex:.9; display:flex; flex-direction:column; gap:12px">
+      <div class="card rise"><div class="big" data-count="223">0</div><div class="lbl">companies: Dallas 81, Chicago 69, Miami 36, Philadelphia 25, Charlotte 12</div></div>
+      <div class="row" style="gap:12px">
+        <div class="card rise" style="flex:1"><div class="big" data-count="205">0</div><div class="lbl">passed the do not contact check</div></div>
+        <div class="card rise" style="flex:1"><div class="big" data-count="18">0</div><div class="lbl">on hold: possible offshore, staffing or wrong website</div></div>
+      </div>
+      <div class="lbl">About 200 to 400 people once you approve the list, or 2 to 3 weeks of invites at your weekly limit.</div>
+    </div>
+  </div>
+  <div class="foot">Source: nitruc target account list v5, filtered 23 Nov 2026. Full company list and copy draft shared separately for your review.</div>
+</section>
+
+<!-- 18 Learned -->
+<section class="slide" data-name="What we learned">
+  <div class="kicker">What we learned</div>
+  <h2>Six things that shape the next month</h2>
+  <div class="grid" style="grid-template-columns:repeat(3,1fr)">
+    <div class="card rise"><h3>A number beats a pitch</h3><div class="lbl">The proof-point Message 1 got 4 replies to 0. It becomes the default.</div></div>
+    <div class="card rise"><h3>Warm beats cold</h3><div class="lbl">Your connections reply at 14 to 25% against under 3% cold, so warm lists get refreshed first.</div></div>
+    <div class="card rise"><h3>LinkedIn invites are the bottleneck</h3><div class="lbl">Your weekly limit runs out by Tuesday. We share it across campaigns and move more volume to email.</div></div>
+    <div class="card rise"><h3>Replies, not clicks</h3><div class="lbl">Newsletter clicks are inflated by scanners. Replies and calls are what we report on.</div></div>
+    <div class="card rise"><h3>Protect nitruc.io</h3><div class="lbl">Bulk sends go from separate domains, and bounced addresses come out of Kit before each send.</div></div>
+    <div class="card rise"><h3>Bullhorn needs the API</h3><div class="lbl">Its screens won't export tear sheets cleanly. The API is live, so lists come straight across.</div></div>
+  </div>
+</section>
+
+<!-- 19 Next -->
+<section class="slide" data-name="Next steps">
+  <div class="kicker">Week of 23 November</div>
+  <h2>What happens next</h2>
+  <div class="grid" style="grid-template-columns:repeat(3,1fr); align-items:start">
+    <div class="card rise"><h3>You</h3><ul class="tick">
+      <li style="font-size:17px">Approve or edit the Salary Outlook copy.</li>
+      <li style="font-size:17px">Strike any company on the list you'd rather we didn't approach.</li>
+      <li style="font-size:17px">Send your current-client file and any new public tear sheets.</li>
+      <li style="font-size:17px">Keep testing the Bullhorn connector.</li></ul></div>
+    <div class="card rise"><h3>RecruiterGTM</h3><ul class="tick">
+      <li style="font-size:17px">Make the proof-point Message 1 the default.</li>
+      <li style="font-size:17px">Settle the 18 on hold, find the leaders, load the Outlook campaign as a draft.</li>
+      <li style="font-size:17px">Clean bounces in Kit and send you opt-in wording.</li>
+      <li style="font-size:17px">Current clients into Kit under their own tag. DMARC review for nitructech.com.</li></ul></div>
+    <div class="card rise"><h3>Together</h3><ul class="tick">
+      <li style="font-size:17px">Monday 10am Eastern: results, split test and new angles.</li>
+      <li style="font-size:17px">Next week: read the replies from all four campaigns and the newsletter.</li></ul></div>
+  </div>
+</section>
+
+<!-- 20 Close -->
+<section class="slide dark" data-name="Close">
+  <div class="orbit"><span class="dot"></span><span class="dot b"></span><span class="dot c"></span></div>
+  <div class="kicker rise">RecruiterGTM · Shmookh, Reyhan, Daniyal and Komal</div>
+  <h1 class="rise" style="margin-top:150px">Thank you, <span class="grad">Dan</span></h1>
+  <p class="rise" style="font-size:24px">Questions on anything in here, bring them to Monday's call.</p>
+  <div class="foot rise">Sources: Dripify (campaign and sequence views, 23 Nov 2026), Kit API (read 23 Nov 2026), nitruc target account list v5, Slack #nitruc-outboundos, and Fireflies notes of our calls from 24 Sep to 17 Nov 2026.</div>
+</section>
+
+</div></div>
+
+<div id="bar">
+  <button id="prev" type="button" aria-label="Previous">◀</button>
+  <button id="next" type="button" aria-label="Next">▶</button>
+  <span id="count">1 / 20</span>
+  <div id="prog"><i></i></div>
+  <span id="name"></span>
+</div>
+
+<script>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var stage = document.getElementById('stage');
+  var i = 0, step = 0;
+  var all = /[?&]all\b/.test(location.search);
+  function fit(){
+    var vw = window.innerWidth - 32, vh = window.innerHeight - 80;
+    var s = Math.min(vw / 1280, vh / 720);
+    stage.style.transform = 'scale(' + Math.max(s, 0.1) + ')';
+  }
+  function maxStep(s){ var m = 0; s.querySelectorAll('[data-step]').forEach(function(e){ m = Math.max(m, +e.getAttribute('data-step')); }); return m; }
+  function count(s){
+    s.querySelectorAll('[data-count]').forEach(function(el){
+      var to = +el.getAttribute('data-count'), t0 = null, d = 1300;
+      function f(t){ if(!t0) t0 = t; var p = Math.min((t - t0) / d, 1); var v = Math.round(to * (1 - Math.pow(1 - p, 3))); el.textContent = v.toLocaleString('en-US'); if(p < 1) requestAnimationFrame(f); }
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { el.textContent = to.toLocaleString('en-US'); } else { el.textContent = '0'; requestAnimationFrame(f); }
+    });
+  }
+  function paint(){
+    var s = slides[i];
+    s.querySelectorAll('[data-step]').forEach(function(e){ e.classList.toggle('shown', all || +e.getAttribute('data-step') <= step); });
+  }
+  function go(n, toEnd){
+    n = Math.max(0, Math.min(slides.length - 1, n));
+    slides[i].classList.remove('on');
+    i = n; var s = slides[i];
+    step = toEnd || all ? maxStep(s) : 0;
+    void s.offsetWidth; s.classList.add('on');
+    paint(); count(s);
+    document.getElementById('count').textContent = (i + 1) + ' / ' + slides.length;
+    document.getElementById('name').textContent = s.getAttribute('data-name') || '';
+    document.querySelector('#prog i').style.width = ((i + 1) / slides.length * 100) + '%';
+    try { history.replaceState(null, '', '#s' + (i + 1)); } catch (e) {}
+  }
+  function next(){ if (step < maxStep(slides[i])) { step++; paint(); } else if (i < slides.length - 1) go(i + 1); }
+  function prev(){ if (step > 0) { step--; paint(); } else if (i > 0) go(i - 1, true); }
+  document.addEventListener('keydown', function(e){
+    if (['ArrowRight','PageDown',' ','Enter'].indexOf(e.key) > -1) { e.preventDefault(); next(); }
+    else if (['ArrowLeft','PageUp','Backspace'].indexOf(e.key) > -1) { e.preventDefault(); prev(); }
+    else if (e.key === 'Home') go(0); else if (e.key === 'End') go(slides.length - 1, true);
+  });
+  document.getElementById('next').addEventListener('click', next);
+  document.getElementById('prev').addEventListener('click', prev);
+  document.getElementById('viewport').addEventListener('click', function(e){ if (e.target.closest('#bar')) return; var r = window.innerWidth; (e.clientX > r / 3) ? next() : prev(); });
+  var sx = null;
+  document.addEventListener('touchstart', function(e){ sx = e.touches[0].clientX; }, {passive:true});
+  document.addEventListener('touchend', function(e){ if (sx === null) return; var dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 40) { dx < 0 ? next() : prev(); } sx = null; });
+  window.addEventListener('resize', fit);
+  fit();
+  var m = /#s(\d+)/.exec(location.hash);
+  go(m ? (+m[1] - 1) : 0);
+})();
+</script>
+</body>
+</html>
