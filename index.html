@@ -111,6 +111,7 @@ table.t td.n{text-align:right; font-weight:600}
 table.t.sm{font-size:15px} table.t.sm td{padding:6px 10px} table.t.sm th{padding:6px 10px} table.t th.r{text-align:right}
 table.t tr.win td{background:var(--tint); font-weight:600}
 </style>
+
 </head>
 <body>
 <div id="viewport"><div id="stage">
@@ -376,11 +377,41 @@ table.t tr.win td{background:var(--tint); font-weight:600}
       <p data-step="1" style="font-size:18px">People rarely click a footer link as often as the main one. An even split like this usually means company email security scanners opened every link, so <b>replies are the number to watch</b>.</p>
     </div>
     <div class="grid" style="grid-template-columns:1fr; gap:12px; flex:1">
-      <div class="card" data-step="2"><h3>701 bounced, 4 spam complaints</h3><div class="lbl">On the Kit account. Kit can restrict accounts with high bounce rates, so bounced and old addresses come out before the Salary Outlook goes.</div></div>
+      <div class="card" data-step="2"><h3>809 bounced, 4 spam complaints</h3><div class="lbl">9% of the send bounced. Kit can restrict accounts with high bounce rates, so this needs fixing before the Salary Outlook goes. The next slide shows where the bounces came from.</div></div>
       <div class="card" data-step="3"><h3>Kit's permission rule</h3><div class="lbl">Kit's terms ask that every subscriber has agreed to receive email. Tear sheets are CRM contacts, so we suggest a clear subscribe or unsubscribe line and a signup link in each issue.</div></div>
     </div>
   </div>
   <div class="foot">Source: Kit API, broadcast clicks and subscriber status counts, read 23 Nov 2026.</div>
+</section>
+
+<!-- 14b Bounces -->
+<section class="slide" data-name="Bounces need attention">
+  <div class="kicker">Needs your attention</div>
+  <h2>701 addresses on the list no longer work</h2>
+  <div class="row" style="gap:36px; align-items:flex-start">
+    <div style="flex:1; display:flex; flex-direction:column; gap:12px">
+      <div class="row" style="gap:12px">
+        <div class="card rise" style="flex:1"><div class="big" data-count="809">0</div><div class="lbl">bounced on the 17 Nov send, 9% of 8,948</div></div>
+        <div class="card rise" style="flex:1"><div class="big" data-count="701">0</div><div class="lbl">permanent bounces: the address is dead, and Kit has stopped sending to it</div></div>
+      </div>
+      <div class="lbl" style="font-weight:600; margin-top:4px">Where the 701 dead addresses came from</div>
+      <div><div class="lbl">Bullhorn, main email field · 620</div><div class="bar" style="height:22px"><i style="--w:100%"></i></div></div>
+      <div><div class="lbl">Bullhorn, Email 2 and 3 · 53</div><div class="bar" style="height:22px"><i style="--w:8.5%"></i></div></div>
+      <div><div class="lbl">Found by RecruiterGTM (Prospeo) · 28</div><div class="bar cy" style="height:22px"><i style="--w:4.5%"></i></div></div>
+    </div>
+    <div style="flex:1; display:flex; flex-direction:column; gap:12px">
+      <table class="t sm" data-step="1">
+        <thead><tr><th>Source</th><th class="r">In Kit</th><th class="r">Dead</th><th class="r">Rate</th></tr></thead>
+        <tbody>
+          <tr class="win"><td>Bullhorn emails</td><td class="n">8,499</td><td class="n">673</td><td class="n">7.9%</td></tr>
+          <tr><td>Emails we found</td><td class="n">455</td><td class="n">28</td><td class="n">6.2%</td></tr>
+        </tbody>
+      </table>
+      <p data-step="2" style="font-size:18px">96% of the dead addresses came from Bullhorn, and about 1 in 12 of its main emails no longer works.</p>
+      <p data-step="3" style="font-size:18px"><b>Ask:</b> clean or re-verify the Bullhorn emails before the next send. We recheck the emails we found the same way before they are used again.</p>
+    </div>
+  </div>
+  <div class="foot">Source: Kit broadcast report (809) and subscriber status from the Kit API (701), read 23 Nov 2026, matched to Bullhorn's Email 1 to 3 and our Prospeo column. The other 108 are temporary bounces; those people stay active. A healthy list bounces under about 2%. Full list of the 701 shared separately.</div>
 </section>
 
 <!-- 15 Keep out -->
@@ -450,7 +481,7 @@ table.t tr.win td{background:var(--tint); font-weight:600}
     <div class="card rise"><h3>Warm beats cold</h3><div class="lbl">Your connections reply at 14 to 25% against under 3% cold, so warm lists get refreshed first.</div></div>
     <div class="card rise"><h3>LinkedIn invites are the bottleneck</h3><div class="lbl">Your weekly limit runs out by Tuesday. We share it across campaigns and move more volume to email.</div></div>
     <div class="card rise"><h3>Replies, not clicks</h3><div class="lbl">Newsletter clicks are inflated by scanners. Replies and calls are what we report on.</div></div>
-    <div class="card rise"><h3>Protect nitruc.io</h3><div class="lbl">Bulk sends go from separate domains, and bounced addresses come out of Kit before each send.</div></div>
+    <div class="card rise"><h3>Protect nitruc.io</h3><div class="lbl">Bulk sends go from separate domains, and lists get cleaned before each send. 9% bounced this time.</div></div>
     <div class="card rise"><h3>Bullhorn needs the API</h3><div class="lbl">Its screens won't export tear sheets cleanly. The API is live, so lists come straight across.</div></div>
   </div>
 </section>
@@ -461,6 +492,7 @@ table.t tr.win td{background:var(--tint); font-weight:600}
   <h2>What happens next</h2>
   <div class="grid" style="grid-template-columns:repeat(3,1fr); align-items:start">
     <div class="card rise"><h3>You</h3><ul class="tick">
+      <li style="font-size:17px">Clean or re-verify the Bullhorn emails before the next send.</li>
       <li style="font-size:17px">Approve or edit the Salary Outlook copy.</li>
       <li style="font-size:17px">Strike any company on the list you'd rather we didn't approach.</li>
       <li style="font-size:17px">Send your current-client file and any new public tear sheets.</li>
@@ -468,7 +500,7 @@ table.t tr.win td{background:var(--tint); font-weight:600}
     <div class="card rise"><h3>RecruiterGTM</h3><ul class="tick">
       <li style="font-size:17px">Make the proof-point Message 1 the default.</li>
       <li style="font-size:17px">Settle the 18 on hold, find the leaders, load the Outlook campaign as a draft.</li>
-      <li style="font-size:17px">Clean bounces in Kit and send you opt-in wording.</li>
+      <li style="font-size:17px">Recheck the emails we found, and send you opt-in wording for Kit.</li>
       <li style="font-size:17px">Current clients into Kit under their own tag. DMARC review for nitructech.com.</li></ul></div>
     <div class="card rise"><h3>Together</h3><ul class="tick">
       <li style="font-size:17px">Monday 10am Eastern: results, split test and new angles.</li>
@@ -549,5 +581,6 @@ table.t tr.win td{background:var(--tint); font-weight:600}
   go(m ? (+m[1] - 1) : 0);
 })();
 </script>
+
 </body>
 </html>
